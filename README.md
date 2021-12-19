@@ -3,7 +3,8 @@
 Neoquest Auto is a simple-to-use program built with Python and Selenium that helps users to easily
 complete the game and get the game trophies by automating the majority of gameplay including map movement, grinding, 
 and weapon upgrades, taking the player all the way from the starting square to the final bosses.
-It follows a predefined completion strategy that has been tested and modified over multiple runs. 
+It follows a predefined completion strategy that has been tested and modified over multiple runs 
+(not tested on InSaNe mode). 
 The only user interaction required is choosing the corresponding program option to complete 
 each part of the game.
 
