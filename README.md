@@ -49,7 +49,7 @@ your venv:
 pip install -r requirements.txt
 ```
 
-The program is almost ready to run. There are two text files in the src named userinfo.txt and 
+The program is almost ready to run. There are two text files in the src/txtfiles folder named userinfo.txt and 
 adblockpath.txt. In userinfo.txt, enter your Neopets username on the first line of the file, 
 and your password on the second line.
 
