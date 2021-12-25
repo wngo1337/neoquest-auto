@@ -19,11 +19,14 @@ This program skips the Temple of Roo and the intermediate weapon upgrades in fav
 transferring directly from the Jungle Ruins to the Mountain Fortress for final upgrades."""
 
 # if __name__ == "__main__":
+#
+#     print(os.listdir())
+#     print(os.getcwd())
+#     myAutobattler = autobattler.AutoBattler()
+#     myAutobattler.loginManager.loginNeopets()
+#
+#     myAutobattler.winBattle()
 
-    # print(os.listdir())
-    # print(os.getcwd())
-    # myAutobattler = autobattler.AutoBattler()
-    # myAutobattler.loginManager.loginNeopets()
     #
     # myAutobattler.train()
 

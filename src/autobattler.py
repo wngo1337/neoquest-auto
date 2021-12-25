@@ -187,20 +187,44 @@ class AutoBattler:
 
         It isn't really worth fleeing battles when following a path because you usually need the
         EXP and potions anyway. Only useful in Two Rings, but pretty unnecessary."""
+
+        # TODO: FIGURE OUT HOW TO RECOVER FROM DISCONNECTIONS
+        # Need WebDriverWait, but for what element?
         for direction in mapPath:
             hasMoved = False
             while not hasMoved:
-                if not self.isBattle():
-                    seleniumobjectsandmethods.goToURL(constants.directionDictionary[direction])
-                    # Try to enter or exit after each step. Really inefficient, but it works
-                    self.enterOrExitDungeon()
-                    hasMoved = True
-                else:
-                    self.winBattle()
+                # TRY TO WAIT FOR AN ELEMENT
+                # IF IT APPEARS, THEN CONTINUE
+                # IF IT DOESN'T, GET TimeOutException, SO CONTINUE where hasMoved = False
+                # Hopefully this fixes broken page loads
+                try:
+                    DELAY = 15
+                    infoElement = WebDriverWait(seleniumobjectsandmethods.singleDriver, DELAY).until(
+                        EC.presence_of_element_located(
+                            (By.XPATH, "//div[@ALIGN='center' and contains(.,'Experience')]")
+                        )
+                    )
 
+                    if not self.isBattle():
+                        seleniumobjectsandmethods.goToURL(constants.directionDictionary[direction])
+                        # Try to enter or exit after each step. Really inefficient, but it works
+                        self.enterOrExitDungeon()
+                        hasMoved = True
+                    else:
+                        self.winBattle()
+                except TimeoutException as e:
+                    logging.warning("Failed to load page while moving across map. Reloading page...")
+                    hasMoved = False
+                    # This should catch the unloaded page and try that direction again?
+                    # But sometimes the page has already sent the data to server... Hard to know
+                    continue
+
+        # Rare scenario: last step of path ends on a battle, but this ends the loop
+        # So win the battle and make one last check to see if we can enter/exit the floor
         if self.isBattle():
             logging.info("Last step of path ended on battle. Winning the battle...")
             self.winBattle()
+            self.enterOrExitDungeon()
 
         logging.info("We have arrived at the destination!")
 

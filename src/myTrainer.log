@@ -3035,3 +3035,20 @@
 2021-12-19 01:24:27,121 [INFO] We are in a boss battle! Increasing healing threshold for survival
 2021-12-19 01:26:18,516 [INFO] We have completed a battle
 2021-12-19 01:26:18,518 [INFO] We have arrived at the destination!
+2021-12-23 16:52:09,825 [INFO] 
+
+2021-12-23 16:52:09,826 [INFO] ====== WebDriver manager ======
+2021-12-23 16:52:09,876 [INFO] Current google-chrome version is 96.0.4664
+2021-12-23 16:52:09,876 [INFO] Get LATEST chromedriver version for 96.0.4664 google-chrome
+2021-12-23 16:52:10,146 [INFO] Driver [C:\Users\WilliamLaptop\.wdm\drivers\chromedriver\win32\96.0.4664.45\chromedriver.exe] found in cache
+2021-12-23 16:52:12,590 [INFO] Reading login info...
+2021-12-23 16:53:55,015 [INFO] 
+
+2021-12-23 16:53:55,016 [INFO] ====== WebDriver manager ======
+2021-12-23 16:53:55,050 [INFO] Current google-chrome version is 96.0.4664
+2021-12-23 16:53:55,051 [INFO] Get LATEST chromedriver version for 96.0.4664 google-chrome
+2021-12-23 16:53:55,162 [INFO] Driver [C:\Users\WilliamLaptop\.wdm\drivers\chromedriver\win32\96.0.4664.45\chromedriver.exe] found in cache
+2021-12-23 16:53:57,221 [INFO] Reading login info...
+2021-12-23 16:54:04,942 [INFO] We have logged in!
+2021-12-23 16:54:04,973 [INFO] We are in a boss battle! Increasing healing threshold for survival
+2021-12-23 16:57:46,682 [INFO] We have completed a battle
