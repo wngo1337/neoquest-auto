@@ -215,6 +215,7 @@ class AutoBattler:
                 except TimeoutException as e:
                     logging.warning("Failed to load page while moving across map. Reloading page...")
                     hasMoved = False
+                    self.refreshPage()
                     # This should catch the unloaded page and try that direction again?
                     # But sometimes the page has already sent the data to server... Hard to know
                     continue
