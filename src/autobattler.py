@@ -207,6 +207,10 @@ class AutoBattler:
 
                     if not self.isBattle():
                         seleniumobjectsandmethods.goToURL(constants.directionDictionary[direction])
+                        # if last step ends in battle, program will not loop again to click link
+                        # so double check if last step entered a battle before clicking links
+                        if (self.isBattle()):
+                            self.winBattle();
                         # Try to enter or exit after each step. Really inefficient, but it works
                         self.enterOrExitDungeon()
                         hasMoved = True
@@ -222,10 +226,6 @@ class AutoBattler:
 
         # Rare scenario: last step of path ends on a battle, but this ends the loop
         # So win the battle and make one last check to see if we can enter/exit the floor
-        if self.isBattle():
-            logging.info("Last step of path ended on battle. Winning the battle...")
-            self.winBattle()
-            self.enterOrExitDungeon()
 
         logging.info("We have arrived at the destination!")
 

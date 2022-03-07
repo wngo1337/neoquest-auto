@@ -5,6 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
 import logging
+import sys
 
 # This class handles logging in and navigating to the Neoquest game page
 class LoginManager:
@@ -46,6 +47,7 @@ class LoginManager:
         except TimeoutException:
             print("We didn't find a logout button, so we probably aren't logged in")
             seleniumobjectsandmethods.singleDriver.quit()
+            sys.exit()
 
         logging.info("We have logged in!")
 

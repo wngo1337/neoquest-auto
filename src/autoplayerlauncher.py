@@ -18,7 +18,9 @@ class AutoPlayerLauncher:
                         "5": "Mountain Fortress (Final Weapon/Armour Upgrade)",
                         "6": "Kal Panning",
                         "7": "Two Rings Grind and Navigation",
-                        "8": "Exit The Program"}
+                        "8": "Follow a Custom Path",
+                        "9": "Train For a Bit (30 Battles because I am lazy to implement)",
+                        "10": "Exit The Program"}
 
     myTaskPerformer = None
 
@@ -69,6 +71,25 @@ class AutoPlayerLauncher:
         logging.info("Two Rings completion in progress...")
         self.myTaskPerformer.completeFaleinnToJahbal()
 
+    def option8(self):
+        print("CAREFUL: Do not use this method if you do not know what you are doing!")
+        while True:
+            mapPath = input("Enter a custom map path (numbers only) to follow, "
+                            "or q to return to menu: ")
+            if mapPath.casefold() == "q":
+                return
+            try:
+                pathCheck = int(mapPath)
+                self.myTaskPerformer.autobattler.followPath(mapPath)
+                return
+            except ValueError:
+                print("You have entered an invalid path!")
+                continue
+
+    def option9(self):
+        self.myTaskPerformer.autobattler.train(30)
+        return
+
 def main():
     myAutoPlayerLauncher = AutoPlayerLauncher()
     while True:
@@ -97,6 +118,10 @@ def main():
                 if choice == "7":
                     myAutoPlayerLauncher.option7()
                 if choice == "8":
+                    myAutoPlayerLauncher.option8();
+                if choice == "9":
+                    myAutoPlayerLauncher.option9();
+                if choice == "10":
                     # Exit the loop to terminate the program
                     break
         except SyntaxError as e:
