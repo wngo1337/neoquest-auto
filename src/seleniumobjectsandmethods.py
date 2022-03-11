@@ -32,6 +32,11 @@ adblockPath = r"{}".format(adblockPath)
 # Just kidding, headless must be bugged with Windows or something. Really slow
 
 myChromeOptions = Options()
+myChromeOptions.add_argument("start-maximized")
+myChromeOptions.add_argument("disable-infobars")
+myChromeOptions.add_argument('--disable-application-cache')
+myChromeOptions.add_argument('--disable-gpu')
+myChromeOptions.add_argument("--disable-dev-shm-usage")
 myChromeOptions.add_argument('load-extension=' + adblockPath)
 # Silences the interpreter complaints about... uh, something
 myChromeOptions.add_experimental_option('excludeSwitches', ['enable-logging'])

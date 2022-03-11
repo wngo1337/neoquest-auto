@@ -385,6 +385,8 @@ class ExperimentalTaskPerformer:
         self.autobattler.followPath("5")
         # Program will automatically fight Jahbal and move to Mastermind, then Xantan if on InSaNe
 
+    def completeJahbalAfterRevive(self):
+        self.autobattler.followPath(gameinfo.movementPathDictionary["reviveToJahbal"])
 
 # if __name__ == "__main__":
 #     myTaskPerformer = ExperimentalTaskPerformer()

@@ -3052,3 +3052,10 @@
 2021-12-23 16:54:04,942 [INFO] We have logged in!
 2021-12-23 16:54:04,973 [INFO] We are in a boss battle! Increasing healing threshold for survival
 2021-12-23 16:57:46,682 [INFO] We have completed a battle
+2022-03-10 16:15:47,770 [INFO] 
+
+2022-03-10 16:15:47,770 [INFO] ====== WebDriver manager ======
+2022-03-10 16:15:47,808 [INFO] Current google-chrome version is 99.0.4844
+2022-03-10 16:15:47,808 [INFO] Get LATEST chromedriver version for 99.0.4844 google-chrome
+2022-03-10 16:15:48,237 [INFO] Driver [C:\Users\WilliamLaptop\.wdm\drivers\chromedriver\win32\99.0.4844.51\chromedriver.exe] found in cache
+2022-03-10 16:15:49,744 [INFO] Reading login info...

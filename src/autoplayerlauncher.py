@@ -19,8 +19,9 @@ class AutoPlayerLauncher:
                         "6": "Kal Panning",
                         "7": "Two Rings Grind and Navigation",
                         "8": "Follow a Custom Path",
-                        "9": "Train For a Bit (30 Battles because I am lazy to implement)",
-                        "10": "Exit The Program"}
+                        "9": "Train For a Bit (40 Battles because I am lazy to implement)",
+                        "10": "Return to Jahbal If You Died From Bad RNG",
+                        "11": "Exit The Program"}
 
     myTaskPerformer = None
 
@@ -87,8 +88,10 @@ class AutoPlayerLauncher:
                 continue
 
     def option9(self):
-        self.myTaskPerformer.autobattler.train(30)
-        return
+        self.myTaskPerformer.autobattler.train(40)
+
+    def option10(self):
+        self.myTaskPerformer.completeJahbalAfterRevive()
 
 def main():
     myAutoPlayerLauncher = AutoPlayerLauncher()
@@ -118,10 +121,12 @@ def main():
                 if choice == "7":
                     myAutoPlayerLauncher.option7()
                 if choice == "8":
-                    myAutoPlayerLauncher.option8();
+                    myAutoPlayerLauncher.option8()
                 if choice == "9":
-                    myAutoPlayerLauncher.option9();
+                    myAutoPlayerLauncher.option9()
                 if choice == "10":
+                    myAutoPlayerLauncher.option10()
+                if choice == "11":
                     # Exit the loop to terminate the program
                     break
         except SyntaxError as e:

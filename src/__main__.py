@@ -18,20 +18,15 @@ It is based on a specific playthrough strategy that consists of the following ar
 This program skips the Temple of Roo and the intermediate weapon upgrades in favour of
 transferring directly from the Jungle Ruins to the Mountain Fortress for final upgrades."""
 
-# if __name__ == "__main__":
-#
-#     print(os.listdir())
-#     print(os.getcwd())
-#     myAutobattler = autobattler.AutoBattler()
-#     myAutobattler.loginManager.loginNeopets()
-#
-#     myAutobattler.winBattle()
+if __name__ == "__main__":
+    print(os.listdir())
+    print(os.getcwd())
+    # myAutobattler = autobattler.AutoBattler()
+    # myAutobattler.loginManager.loginNeopets()
 
-    #
-    # myAutobattler.train()
+    # startToCave1 = gameinfo.movementPathDictionary["reviveToJahbal"]
+    # startToCave1 = myAutobattler.pathTracker.invertPath(
+    #     gameinfo.movementPathDictionary["reviveToJahbal"])
+    # myAutobattler.followPath(startToCave1)
 
-
-
-
-
-
+    # myAutobattler.followPath("5")
