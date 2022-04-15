@@ -112,7 +112,7 @@ class AutoBattler:
         self.changeMovementMode("h")
         while numBattles > 0:
             try:
-                DELAY = 15
+                DELAY = 5
                 infoElement = WebDriverWait(seleniumobjectsandmethods.singleDriver, DELAY).until(
                     EC.presence_of_element_located(
                         (By.XPATH, "//div[@ALIGN='center' and contains(.,'Experience')]")
