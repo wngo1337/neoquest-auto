@@ -47,7 +47,7 @@ class AutoBattler:
 
     def getPlayerInfo(self):
         # THIS GLITCHES SOMETIMES, I GUESS PAGE DOESN'T LOAD SOMETIMES AND BREAKS IT
-        myInfoElement = WebDriverWait(seleniumobjectsandmethods.singleDriver, 30). \
+        myInfoElement = WebDriverWait(seleniumobjectsandmethods.singleDriver, 5). \
             until(EC.presence_of_element_located((By.XPATH, "//div[contains(text(), 'Name:')]")))
         playerInfo = myInfoElement.text
 
@@ -112,7 +112,7 @@ class AutoBattler:
         self.changeMovementMode("h")
         while numBattles > 0:
             try:
-                DELAY = 5
+                DELAY = 4
                 infoElement = WebDriverWait(seleniumobjectsandmethods.singleDriver, DELAY).until(
                     EC.presence_of_element_located(
                         (By.XPATH, "//div[@ALIGN='center' and contains(.,'Experience')]")
@@ -148,7 +148,7 @@ class AutoBattler:
         # already checked this condition in train(), but double check to be sure
         while self.isBattle():
             try:
-                DELAY = 15
+                DELAY = 4
                 infoElement = WebDriverWait(seleniumobjectsandmethods.singleDriver, DELAY).until(
                     EC.presence_of_element_located(
                         (By.XPATH, "//div[@ALIGN='center' and contains(.,'Experience')]")
@@ -198,7 +198,7 @@ class AutoBattler:
                 # IF IT DOESN'T, GET TimeOutException, SO CONTINUE where hasMoved = False
                 # Hopefully this fixes broken page loads
                 try:
-                    DELAY = 15
+                    DELAY = 4
                     infoElement = WebDriverWait(seleniumobjectsandmethods.singleDriver, DELAY).until(
                         EC.presence_of_element_located(
                             (By.XPATH, "//div[@ALIGN='center' and contains(.,'Experience')]")
