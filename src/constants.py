@@ -1,6 +1,6 @@
 # Common URLs for navigation
 
-LOGIN_URL = "http://www.neopets.com/login"
+LOGIN_URL = "https://www.neopets.com/login/?destination=/home/"
 # Multi-purpose page that mainly navigates to the overworld map
 MAIN_GAME_URL = "http://www.neopets.com/games/neoquest/neoquest.phtml"
 # Used to "move" in place for random encounters
