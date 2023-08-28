@@ -1,8 +1,9 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+import chromedriver_autoinstaller
 import logging
+
+chromedriver_autoinstaller.install()
 
 # Setting up logger for all files to use
 logger = logging.getLogger(__name__)
@@ -48,8 +49,7 @@ myChromeOptions.add_experimental_option('excludeSwitches', ['enable-logging'])
 # prefs = {"profile.managed_default_content_settings.images": 2}
 # myChromeOptions.add_experimental_option("prefs", prefs)
 
-singleDriver = webdriver.Chrome(executable_path=ChromeDriverManager().install(),
-                                chrome_options=myChromeOptions)
+singleDriver = webdriver.Chrome(options=myChromeOptions)
 singleDriver.create_options()
 
 # Want standardized methods for all classes to interact with pages through this module's singleDriver
