@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
 import chromedriver_autoinstaller
 import logging
 
@@ -50,12 +51,12 @@ myChromeOptions.add_experimental_option('excludeSwitches', ['enable-logging'])
 # myChromeOptions.add_experimental_option("prefs", prefs)
 
 singleDriver = webdriver.Chrome(options=myChromeOptions)
-singleDriver.create_options()
+# singleDriver.create_options()
 
 # Want standardized methods for all classes to interact with pages through this module's singleDriver
 # Only want to pass the driver around when necessary
 def clickLinkByXpath(xpath):
-    link = singleDriver.find_element_by_xpath(xpath)
+    link = singleDriver.find_element(By.XPATH, xpath)
     singleDriver.execute_script("arguments[0].click();", link)
     return None
 

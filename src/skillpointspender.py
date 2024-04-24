@@ -1,4 +1,5 @@
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
 import seleniumobjectsandmethods
 import constants
 
@@ -65,7 +66,7 @@ class SkillPointSpender:
         # Maybe this is confusing, but I want to restrict visibility of the WebDriver as much as possible
         # However, I have no choice but to make a temporary reference to it here I think
         try:
-            seleniumobjectsandmethods.singleDriver.find_element_by_xpath(self.SPEND_POINTS_XPATH)
+            seleniumobjectsandmethods.singleDriver.find_element(By.XPATH, self.SPEND_POINTS_XPATH)
         except NoSuchElementException:
             return False
         return True

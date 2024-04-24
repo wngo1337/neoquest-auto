@@ -31,9 +31,9 @@ class LoginManager:
             myElement = WebDriverWait(seleniumobjectsandmethods.singleDriver, DELAY).\
                 until(EC.presence_of_element_located((By.ID, "loginButton")))
             # Wait until the login button appears before submitting any information
-            seleniumobjectsandmethods.singleDriver.find_element_by_name("username").send_keys(self.username)
-            seleniumobjectsandmethods.singleDriver.find_element_by_id("loginPassword").send_keys(self.password)
-            seleniumobjectsandmethods.singleDriver.find_element_by_class_name("login-button").click()
+            seleniumobjectsandmethods.singleDriver.find_element(By.NAME, "username").send_keys(self.username)
+            seleniumobjectsandmethods.singleDriver.find_element(By.ID, "loginPassword").send_keys(self.password)
+            seleniumobjectsandmethods.singleDriver.find_element(By.CLASS_NAME, "login-button").click()
         except TimeoutException:
             print("The page took too long to load!")
             seleniumobjectsandmethods.singleDriver.quit()
