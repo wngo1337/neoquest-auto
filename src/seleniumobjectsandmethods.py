@@ -30,19 +30,16 @@ with open("txtfiles/adblockpath.txt", "r") as adblockPathFile:
     adblockPath = adblockPathFile.readline()
 adblockPath = r"{}".format(adblockPath)
 
-# TODO: Convert to headless driver when whole project done?
-# Just kidding, headless must be bugged with Windows or something. Really slow
+my_chrome_options = Options()
+my_chrome_options.add_argument("start-maximized")
+my_chrome_options.add_argument("disable-infobars")
+my_chrome_options.add_argument('--disable-application-cache')
+my_chrome_options.add_argument('--disable-gpu')
+my_chrome_options.add_argument("--disable-dev-shm-usage")
 
-myChromeOptions = Options()
-myChromeOptions.add_argument("start-maximized")
-myChromeOptions.add_argument("disable-infobars")
-myChromeOptions.add_argument('--disable-application-cache')
-myChromeOptions.add_argument('--disable-gpu')
-myChromeOptions.add_argument("--disable-dev-shm-usage")
-
-myChromeOptions.add_argument('load-extension=' + adblockPath)
+my_chrome_options.add_argument('load-extension=' + adblockPath)
 # Silences the interpreter complaints about... uh, something
-myChromeOptions.add_experimental_option('excludeSwitches', ['enable-logging'])
+my_chrome_options.add_experimental_option('excludeSwitches', ['enable-logging'])
 # DO NOT use headless: at least for me, drastically INCREASES loading time
 # Maybe because headless cannot run extensions, so must load ads
 # myChromeOptions.add_argument("--headless")
@@ -50,16 +47,16 @@ myChromeOptions.add_experimental_option('excludeSwitches', ['enable-logging'])
 # prefs = {"profile.managed_default_content_settings.images": 2}
 # myChromeOptions.add_experimental_option("prefs", prefs)
 
-singleDriver = webdriver.Chrome(options=myChromeOptions)
+single_driver = webdriver.Chrome(options=my_chrome_options)
 # singleDriver.create_options()
 
 # Want standardized methods for all classes to interact with pages through this module's singleDriver
 # Only want to pass the driver around when necessary
-def clickLinkByXpath(xpath):
-    link = singleDriver.find_element(By.XPATH, xpath)
-    singleDriver.execute_script("arguments[0].click();", link)
+def click_link_by_xpath(xpath):
+    link = single_driver.find_element(By.XPATH, xpath)
+    single_driver.execute_script("arguments[0].click();", link)
     return None
 
-def goToURL(address):
-    singleDriver.get(address)
+def go_to_url(address):
+    single_driver.get(address)
     return None
