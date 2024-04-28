@@ -1,7 +1,7 @@
 """This module will probably contain a relevant list of game information like
 equipment recipes, IDs, movement paths, etc."""
 
-itemIDDictionary = {"glowing stone": "item230000",
+item_names_to_ids = {"glowing stone": "item230000",
                     "chunk of metal": "item230001",
                     "small yellow gem": "item230002",
                     "plains lupe pelt": "item230003",
@@ -47,7 +47,7 @@ itemIDDictionary = {"glowing stone": "item230000",
                     "drakonid heart": "item230080"
                     }
 
-equipmentInfoDictionary = {"Energy Shield": (
+equipment_names_to_recipes = {"Energy Shield": (
     210000, 90010003, ("small yellow gem", "chunk of metal", "glowing stone")),
     # MAGIC ROBE ID IS MADE UP BECAUSE I DON'T KNOW IT YET
     "Magic Robe": (
@@ -92,7 +92,7 @@ equipmentInfoDictionary = {"Energy Shield": (
     )
 }
 
-movementPathDictionary = {"eleusToDankCave": "4444444444411112",
+travel_locations_to_paths = {"eleusToDankCave": "4444444444411112",
                           "dankCaveF1ToF2": "878785555555555588587776664644446778855555555",
                           "dankCaveF2ToF3": "555555558777777777777777777855555555532222222222222222211",
                           "dankCaveF3ToF4": "555877778532222358777785322223558777677778766785877764444"

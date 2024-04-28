@@ -17,7 +17,7 @@ MAP_MOVEMENT_URL = "http://www.neopets.com/games/neoquest/neoquest.phtml?action=
 
 # ORDER IS VERY IMPORTANT. e.g. Don't do nothing before checking if we can attack
 # Might redo this later because that seems like a bad idea, but I dunno
-battleXpathList = [
+battle_options_xpaths = [
     # We only use this option once in the entire game... oh well
     "//A[contains(.,'Show the Keladrian Medallion to Faleinn')]",
     "//A[contains(.,'Cast Ice Wind from your Iceheart Staff')]",
@@ -32,7 +32,7 @@ battleXpathList = [
 ]
 
 # Static image URLs for identifying presence of boss
-bossImageList = ["images.neopets.com/nq/m/400198_VRhlK_Jahbal.gif",
+boss_images = ["images.neopets.com/nq/m/400198_VRhlK_Jahbal.gif",
                  "http://images.neopets.com/nq/m/400199_GWcxJ_Mastermind.gif"]
 
 # MAYBE DO DIRECTIONS FOR THE MOVEMENT SYSTEM NEXT
@@ -48,7 +48,7 @@ MOVE_SOUTHWEST_URL = "http://www.neopets.com/games/neoquest/neoquest.phtml?actio
 MOVE_SOUTH_URL = "http://www.neopets.com/games/neoquest/neoquest.phtml?action=move&movedir=7"
 MOVE_SOUTHEAST_URL = "http://www.neopets.com/games/neoquest/neoquest.phtml?action=move&movedir=8"
 
-directionDictionary = {"1": MOVE_NORTHWEST_URL,
+numbers_to_direction_urls = {"1": MOVE_NORTHWEST_URL,
                        "2": MOVE_NORTH_URL,
                        "3": MOVE_NORTHEAST_URL,
                        "4": MOVE_WEST_URL,

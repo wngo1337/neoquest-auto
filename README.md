@@ -8,6 +8,10 @@ It follows a predefined completion strategy that has been tested and modified ov
 The only user interaction required is choosing the corresponding program option to complete 
 each part of the game.
 
+**2024/04/27 update:** I am not sure when it started, but Neopets has an incredibly annoying sitewide page hiccup that sometimes occurs when performing an action. 
+This not only causes page loads to fail in battle, but also causes movement actions to be unpredictably duplicated. 
+Unfortunately, this means that **path following/navigation with this program is not reliable right now**, though autobattle/training still handles page load failures properly.
+
 As of now, the program does not keep track of game state on exit.
 This may change in the future, but make sure you can run each function to completion before starting.
 

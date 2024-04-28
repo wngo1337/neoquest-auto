@@ -23,52 +23,52 @@ class EquipmentMaker:
 
     def __init__(self):
         # Ideally, we read these in from a text file
-        self.equipmentName = None
-        self.equipmentID = None
-        self.makerID = None
+        self.equipment_name = None
+        self.equipment_id = None
+        self.maker_id = None
         self.recipe = None
 
-    def getIngredientID(self, ingredientName):
-        return gameinfo.itemIDDictionary[ingredientName]
+    def get_ingredient_id(self, ingredient_name):
+        return gameinfo.item_names_to_ids[ingredient_name]
 
-    def setEquipmentRecipe(self, equipmentName):
+    def set_equipment_recipe(self, equipment_name):
         # This method consults the equipmentInfoDictionary for relevant info before using
-        self.equipmentName = equipmentName
-        self.equipmentID, self.makerID, self.recipe = gameinfo.equipmentInfoDictionary[equipmentName]
+        self.equipment_name = equipment_name
+        self.equipment_id, self.maker_id, self.recipe = gameinfo.equipment_names_to_recipes[equipment_name]
 
-        logging.info(self.equipmentName)
-        logging.info("equipID={}, makerID={}".format(self.equipmentID, self.makerID))
+        logging.info(self.equipment_name)
+        logging.info("equipID={}, makerID={}".format(self.equipment_id, self.maker_id))
         logging.info("".join([str(ingredient) for ingredient in self.recipe]))
 
-    def isIngredientsPresent(self):
+    def are_ingredients_present(self):
         # Must use temporary driver reference here because need to access page source
-        seleniumobjectsandmethods.goToURL(constants.ITEM_PAGE_URL)
-        itemPageSource = seleniumobjectsandmethods.singleDriver.page_source
+        seleniumobjectsandmethods.go_to_url(constants.ITEM_PAGE_URL)
+        item_page_source = seleniumobjectsandmethods.single_driver.page_source
         for ingredient in self.recipe:
-            if ingredient not in itemPageSource:
+            if ingredient not in item_page_source:
                 logging.info("Don't have the necessary ingredients!")
                 return False
         logging.info("We have all the necessary ingredients!")
         return True
 
-    def makeEquipment(self):
+    def make_equipment(self):
         # This method consults the equipment dictionary for the relevant info before using it
-        if self.isIngredientsPresent():
-            seleniumobjectsandmethods.goToURL(
-                self.ITEM_MAKER_ADDRESS_TEMPLATE.format(self.makerID)
+        if self.are_ingredients_present():
+            seleniumobjectsandmethods.go_to_url(
+                self.ITEM_MAKER_ADDRESS_TEMPLATE.format(self.maker_id)
             )
             for ingredient in self.recipe:
                 # find the selection radio button and click it
-                pathTemplate = "//INPUT[@TYPE='radio' and @NAME='{}']"
-                seleniumobjectsandmethods.clickLinkByXpath(pathTemplate.format(
-                    self.getIngredientID(ingredient)
+                path_template = "//INPUT[@TYPE='radio' and @NAME='{}']"
+                seleniumobjectsandmethods.click_link_by_xpath(path_template.format(
+                    self.get_ingredient_id(ingredient)
                 ))
-            seleniumobjectsandmethods.clickLinkByXpath("//INPUT[contains(@VALUE, 'Give items to')]")
+            seleniumobjectsandmethods.click_link_by_xpath("//INPUT[contains(@VALUE, 'Give items to')]")
             # Should always equip after making, so just do it now
-            self.equipEquipment()
+            self.equip_equipment()
 
-    def equipEquipment(self):
-        seleniumobjectsandmethods.goToURL(constants.ITEM_PAGE_URL)
-        seleniumobjectsandmethods.goToURL(self.EQUIP_ADDRESS_TEMPLATE.format(self.equipmentID))
+    def equip_equipment(self):
+        seleniumobjectsandmethods.go_to_url(constants.ITEM_PAGE_URL)
+        seleniumobjectsandmethods.go_to_url(self.EQUIP_ADDRESS_TEMPLATE.format(self.equipment_id))
         
-        logging.info("We have equipped the {}".format(self.equipmentName))
+        logging.info("We have equipped the {}".format(self.equipment_name))

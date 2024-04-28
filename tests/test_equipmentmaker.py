@@ -7,54 +7,45 @@ import logging
 
 logging.basicConfig(level=logging.INFO)
 
-myAutoBattler = autobattler.AutoBattler()
-myAutoBattler.loginManager.loginNeopets()
+auto_battler = autobattler.AutoBattler()
+auto_battler.login_manager.login_neopets()
 
-def test_getIngredientID():
-    testIngredient = "chunk of metal"
+def test_get_ingredient_id():
+    test_ingredient = "chunk of metal"
     expectedID = "item230001"
-    assert myAutoBattler.equipmentMaker.getIngredientID(testIngredient) == expectedID
+    assert auto_battler.equipment_maker.get_ingredient_id(test_ingredient) == expectedID
 
-def test_isIngredientsPresent():
+def test_is_ingredients_present():
     # Tricky to test because ingredients won't always be present...
-    myAutoBattler.equipmentMaker.setEquipmentRecipe("Energy Shield")
-    assert myAutoBattler.equipmentMaker.isIngredientsPresent() == True
+    auto_battler.equipment_maker.set_equipment_recipe("Energy Shield")
+    assert auto_battler.equipment_maker.are_ingredients_present() == True
 
-def test_makeEquipment():
-    # Currently can only do after setting a recipe
-    # Also unrepeatable so uh...
-    assert True
-
-def test_setEquipmentRecipe():
-    myAutoBattler.equipmentMaker.setEquipmentRecipe("Magic Robe")
-    assert myAutoBattler.equipmentMaker.makerID == 90010005
-    assert myAutoBattler.equipmentMaker.equipmentID == 210011
-    assert myAutoBattler.equipmentMaker.recipe == ("cave lupe pelt", "stretch of rotted cloth",
+def test_set_equipment_recipe():
+    auto_battler.equipment_maker.set_equipment_recipe("Magic Robe")
+    assert auto_battler.equipment_maker.maker_id == 90010005
+    assert auto_battler.equipment_maker.equipment_id == 210011
+    assert auto_battler.equipment_maker.recipe == ("cave lupe pelt", "stretch of rotted cloth",
                                                 "tiny obsidian", "glowing stone")
 
-def test_isIngredientsPresent():
-    # Pretty hard to test since we only allow checking for the current recipe's ingredients
-    assert True
-
-def test_setEquipmentRecipe_noItems():
+def test_set_equipment_recipe_no_items():
     # Testing no-crafting (a.k.a. dropped weapons) equipment recipe setting
-    myAutoBattler.equipmentMaker.setEquipmentRecipe("Inferno Robe")
-    assert myAutoBattler.equipmentMaker.makerID == -1
-    assert myAutoBattler.equipmentMaker.equipmentID == 210014
-    assert myAutoBattler.equipmentMaker.recipe == tuple()
+    auto_battler.equipment_maker.set_equipment_recipe("Inferno Robe")
+    assert auto_battler.equipment_maker.maker_id == -1
+    assert auto_battler.equipment_maker.equipment_id == 210014
+    assert auto_battler.equipment_maker.recipe == tuple()
 
-def test_equipEquipment_weapon():
+def test_equip_equipment_weapon():
     # Ideally test a default wand
-    myAutoBattler.equipmentMaker.setEquipmentRecipe("White Wand")
-    myAutoBattler.equipmentMaker.equipEquipment()
-    assert "You equipped" in myAutoBattler.driver.page_source \
-           and "as your weapon" in myAutoBattler.driver.page_source
+    auto_battler.equipment_maker.set_equipment_recipe("White Wand")
+    auto_battler.equipment_maker.equip_equipment()
+    assert "You equipped" in auto_battler.driver.page_source \
+           and "as your weapon" in auto_battler.driver.page_source
 
-def test_equipEquipment_armour():
-    myAutoBattler.equipmentMaker.setEquipmentRecipe("Energy Shield")
-    myAutoBattler.equipmentMaker.equipEquipment()
-    assert "You equipped" in myAutoBattler.driver.page_source \
-           and "as your armour" in myAutoBattler.driver.page_source
+def test_equip_equipment_armour():
+    auto_battler.equipment_maker.set_equipment_recipe("Energy Shield")
+    auto_battler.equipment_maker.equip_equipment()
+    assert "You equipped" in auto_battler.driver.page_source \
+           and "as your armour" in auto_battler.driver.page_source
 
 
 
