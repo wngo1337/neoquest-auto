@@ -29,6 +29,7 @@ The skill build is a fixed 10/10/10/0 Life and 7/7/6/6 Shock, which the program 
 class AutoBattler:
     def __init__(self):
         self.login_manager = loginmanager.LoginManager()
+        self.potion_handler = potionhandler.PotionHandler()
         self.skill_point_spender = skillpointspender.SkillPointSpender()
         self.equipment_maker = equipmentmaker.EquipmentMaker()
         self.path_tracker = pathtracker.PathTracker()
@@ -154,7 +155,7 @@ class AutoBattler:
                         and not self.is_stunned() \
                         and not self.is_start_or_end_of_fight() \
                         and self.has_potions():
-                    self.potionHandler.usePotion(current_health, max_health)
+                    self.potion_handler.use_potion(current_health, max_health)
                     # Originally had a break statement here, was breaking the while loop
                 else:
                     for BATTLE_MESSAGE in constants.battle_options_xpaths:
