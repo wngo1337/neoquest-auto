@@ -26,9 +26,13 @@ If not, then it doesn't do anything... Should be able to handle the following:
 
 The skill build is a fixed 10/10/10/0 Life and 7/7/6/6 Shock, which the program follows"""
 
+
 class AutoBattler:
-    def __init__(self):
-        self.login_manager = loginmanager.LoginManager()
+
+    DEFAULT_DELAY = 10
+
+    def __init__(self, use_neopass):
+        self.login_manager = loginmanager.LoginManager(use_neopass=use_neopass)
         self.potion_handler = potionhandler.PotionHandler()
         self.skill_point_spender = skillpointspender.SkillPointSpender()
         self.equipment_maker = equipmentmaker.EquipmentMaker()
@@ -44,8 +48,11 @@ class AutoBattler:
         seleniumobjectsandmethods.single_driver.quit()
 
     def get_player_info(self):
-        my_info_element = WebDriverWait(seleniumobjectsandmethods.single_driver, 5). \
-            until(EC.presence_of_element_located((By.XPATH, "//div[contains(text(), 'Name:')]")))
+        my_info_element = seleniumobjectsandmethods.get_element_with_wait(
+            seleniumobjectsandmethods.single_driver,
+            AutoBattler.DEFAULT_DELAY,
+            (By.XPATH, constants.PLAYER_INFO_ELEMENT_XPATH),
+        )
         player_info = my_info_element.text
 
         # TODO: Fix the str parsing here. It works, but it is pretty dumb
@@ -71,9 +78,12 @@ class AutoBattler:
     "You are stunned" can be on the page where you are able to act again, so need to check
     for presence of Attack button to see if you are really stunned...
     """
+
     def is_stunned(self):
         page_source = seleniumobjectsandmethods.single_driver.page_source
-        return ("stuns you for" in page_source) or ("You are stunned" in page_source and "Attack" not in page_source)
+        return ("stuns you for" in page_source) or (
+            "You are stunned" in page_source and "Attack" not in page_source
+        )
 
     # These are pretty weak conditions, but they do work...
     def is_start_or_end_of_fight(self):
@@ -107,12 +117,12 @@ class AutoBattler:
         self.change_movement_mode("h")
         while num_battles > 0:
             try:
-                DELAY = 4
-                info_element = WebDriverWait(seleniumobjectsandmethods.single_driver, DELAY).until(
-                    EC.presence_of_element_located(
-                        (By.XPATH, "//div[@ALIGN='center' and contains(.,'Experience')]")
-                    )
+                info_element = seleniumobjectsandmethods.get_element_with_wait(
+                    seleniumobjectsandmethods.single_driver,
+                    AutoBattler.DEFAULT_DELAY,
+                    (By.XPATH, constants.EXP_ELEMENT_XPATH),
                 )
+
                 # If we see the direction arrows, we want to "move" in place to encounter monsters
                 if not self.is_battle():
                     if self.skill_point_spender.has_points():
@@ -123,7 +133,9 @@ class AutoBattler:
                     self.win_battle()
                     num_battles -= 1
             except TimeoutException:
-                logging.warning("The program ran into an error while training, refreshing page")
+                logging.warning(
+                    "The program ran into an error while training, refreshing page"
+                )
                 self.refresh_page()
                 continue
 
@@ -134,7 +146,9 @@ class AutoBattler:
 
         # Determine whether is boss battle or regular encounter
         if self.is_boss_battle():
-            logging.info("We are in a boss battle! Increasing healing threshold for survival")
+            logging.info(
+                "We are in a boss battle! Increasing healing threshold for survival"
+            )
             HEALING_THRESHOLD = 0.65
         else:
             HEALING_THRESHOLD = 0.55
@@ -142,25 +156,29 @@ class AutoBattler:
         # already checked this condition in train(), but double check to be sure
         while self.is_battle():
             try:
-                DELAY = 4
-                info_element = WebDriverWait(seleniumobjectsandmethods.single_driver, DELAY).until(
-                    EC.presence_of_element_located(
-                        (By.XPATH, "//div[@ALIGN='center' and contains(.,'Experience')]")
-                    )
+                info_element = seleniumobjectsandmethods.get_element_with_wait(
+                    seleniumobjectsandmethods.single_driver,
+                    AutoBattler.DEFAULT_DELAY,
+                    (By.XPATH, constants.EXP_ELEMENT_XPATH),
                 )
+
                 current_health, max_health, level = self.get_player_info()
                 # We need to heal, so use a potion
 
-                if current_health < round(max_health * HEALING_THRESHOLD) \
-                        and not self.is_stunned() \
-                        and not self.is_start_or_end_of_fight() \
-                        and self.has_potions():
+                if (
+                    current_health < round(max_health * HEALING_THRESHOLD)
+                    and not self.is_stunned()
+                    and not self.is_start_or_end_of_fight()
+                    and self.has_potions()
+                ):
                     self.potion_handler.use_potion(current_health, max_health)
                     # Originally had a break statement here, was breaking the while loop
                 else:
                     for BATTLE_MESSAGE in constants.battle_options_xpaths:
                         try:
-                            seleniumobjectsandmethods.click_link_by_xpath(BATTLE_MESSAGE)
+                            seleniumobjectsandmethods.click_link_by_xpath(
+                                BATTLE_MESSAGE
+                            )
                             break
                             # Early exit so we don't waste time when we find valid action
                         except NoSuchElementException:
@@ -184,33 +202,65 @@ class AutoBattler:
         for direction in map_path:
             has_moved = False
             while not has_moved:
-                # try to wait for an element
-                # if it appears, then continue
-                # if it doesn't, get timeoutexception, so continue where hasmoved = false
-                # Hopefully this fixes broken page loads
+                # Wait to make sure page has loaded elements properly
                 try:
-                    DELAY = 4
-                    info_element = WebDriverWait(seleniumobjectsandmethods.single_driver, DELAY).until(
-                        EC.presence_of_element_located(
-                            (By.XPATH, "//div[@ALIGN='center' and contains(.,'Experience')]")
-                        )
+                    seleniumobjectsandmethods.get_element_with_wait(
+                        seleniumobjectsandmethods.single_driver,
+                        AutoBattler.DEFAULT_DELAY,
+                        (
+                            By.XPATH,
+                            constants.EXP_ELEMENT_XPATH,
+                        ),
                     )
 
                     if not self.is_battle():
-                        seleniumobjectsandmethods.go_to_url(constants.numbers_to_direction_urls[direction])
+                        # Instead of using direct URL, click the buttons themselves
+                        movement_button_href = constants.numbers_to_direction_urls[
+                            direction
+                        ].split("/")[-1]
+                        movement_button = (
+                            seleniumobjectsandmethods.get_element_with_wait(
+                                seleniumobjectsandmethods.single_driver,
+                                AutoBattler.DEFAULT_DELAY,
+                                (
+                                    By.XPATH,
+                                    constants.MOVEMENT_BUTTON_HREF_TEMPLATE.format(
+                                        movement_button_href
+                                    ),
+                                ),
+                            )
+                        )
+                        movement_button.click()
+                        # NEED TO HANDLE THE CASE WHERE THE PAGE DIES
+                        # If page doesn't load at all, request hasn't been sent
+
+                        # Wait again to make sure page is loaded
+
+                        seleniumobjectsandmethods.get_element_with_wait(
+                            seleniumobjectsandmethods.single_driver,
+                            AutoBattler.DEFAULT_DELAY,
+                            (
+                                By.XPATH,
+                                constants.EXP_ELEMENT_XPATH,
+                            ),
+                        )
+
                         # if last step ends in battle, program will not loop again to click link
                         # so double check if last step entered a battle before clicking links
-                        if (self.is_battle()):
-                            self.win_battle();
+                        if self.is_battle():
+                            self.win_battle()
                         # Try to enter or exit after each step. Really inefficient, but it works
                         self.enter_or_exit_dungeon()
                         has_moved = True
                     else:
                         self.win_battle()
                 except TimeoutException as e:
-                    logging.warning("Failed to load page while moving across map. Reloading page...")
+                    logging.warning(
+                        "Failed to load page while moving across map. Reloading page..."
+                    )
                     has_moved = False
-                    self.refresh_page()
+                    # self.refresh_page()
+                    seleniumobjectsandmethods.go_to_url(constants.MAIN_GAME_URL)
                     # This should catch the unloaded page and try that direction again?
                     # But sometimes the page has already sent the data to server... Hard to know
                     continue
@@ -226,7 +276,9 @@ class AutoBattler:
                 seleniumobjectsandmethods.click_link_by_xpath(
                     constants.ENTRANCE_OR_EXIT_TEMPLATE.format(page_index)
                 )
-                logging.info("Successfully clicked link ending in {}".format(page_index))
+                logging.info(
+                    "Successfully clicked link ending in {}".format(page_index)
+                )
                 break
             except NoSuchElementException:
                 continue
@@ -248,7 +300,9 @@ class AutoBattler:
     def grind_for_items(self, item_list):
         have_all_items = self.are_items_present(item_list)
         while not have_all_items:
-            logging.info("We are missing some items. Farming 5 battles and checking back...")
+            logging.info(
+                "We are missing some items. Farming 5 battles and checking back..."
+            )
             self.train(5)
             have_all_items = self.are_items_present(item_list)
         self.change_movement_mode("s")
@@ -271,6 +325,8 @@ class AutoBattler:
         # If there was a specified path, go back and then reenter the opening
         # THIS IS SO UGLY BUT WE CAN REWORK IT LATER
         if optional_path is not None:
-            logging.info("We had to move away to grind, so resetting our position for movement...")
+            logging.info(
+                "We had to move away to grind, so resetting our position for movement..."
+            )
             self.follow_path(self.path_tracker.invert_path(optional_path))
             self.enter_or_exit_dungeon()

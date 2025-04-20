@@ -1,10 +1,15 @@
-# Common URLs for navigation
+##### NAVIGATION URLS ######
 
 LOGIN_URL = "https://www.neopets.com/login/?destination=/home/"
+# Neopass has separate login URL from normal login
+NEOPASS_LOGIN_URL = "https://neopass.neopets.com/login"
 # Multi-purpose page that mainly navigates to the overworld map
 MAIN_GAME_URL = "http://www.neopets.com/games/neoquest/neoquest.phtml"
 # Used to "move" in place for random encounters
-MAP_MOVEMENT_URL = "http://www.neopets.com/games/neoquest/neoquest.phtml?action=move&movedir="
+MAP_MOVEMENT_URL = (
+    "http://www.neopets.com/games/neoquest/neoquest.phtml?action=move&movedir="
+)
+MOVEMENT_BUTTON_HREF_TEMPLATE = "//area[@href='{0}']"
 
 # # Key button/link strings that determine the program's next choice of action
 # RETURN_MAP_STRING = "Click here to return to the map"
@@ -15,6 +20,11 @@ MAP_MOVEMENT_URL = "http://www.neopets.com/games/neoquest/neoquest.phtml?action=
 # IN_BATTLE_STRING = "Attack"
 # STUNNED_IN_BATTLE_STRING = "Do nothing"
 
+##### GAME PAGE ELEMENT XPATHS #####
+PLAYER_INFO_ELEMENT_XPATH = "//div[contains(text(), 'Name:')]"
+# Used to determine if page has loaded enough or not
+EXP_ELEMENT_XPATH = "//div[@ALIGN='center' and contains(.,'Experience')]"
+
 # ORDER IS VERY IMPORTANT. e.g. Don't do nothing before checking if we can attack
 # Might redo this later because that seems like a bad idea, but I dunno
 battle_options_xpaths = [
@@ -24,39 +34,58 @@ battle_options_xpaths = [
     "//A[@HREF='javascript:;' and text()='Attack']",
     "//A[contains(.,'Do nothing')]",
     "//a[contains(.,'Click here to see what you found!')]",
-    "//INPUT[@TYPE='submit' and "
-    "@VALUE='Click here to return to the map']",
+    "//INPUT[@TYPE='submit' and " "@VALUE='Click here to return to the map']",
     "//INPUT[@TYPE='submit' and @VALUE='Click here to see what happens...']",
-    "//INPUT[@TYPE='submit' and "
-    "@VALUE='Click here to begin the fight!']"
+    "//INPUT[@TYPE='submit' and " "@VALUE='Click here to begin the fight!']",
 ]
 
 # Static image URLs for identifying presence of boss
-boss_images = ["images.neopets.com/nq/m/400198_VRhlK_Jahbal.gif",
-                 "http://images.neopets.com/nq/m/400199_GWcxJ_Mastermind.gif"]
+boss_images = [
+    "images.neopets.com/nq/m/400198_VRhlK_Jahbal.gif",
+    "http://images.neopets.com/nq/m/400199_GWcxJ_Mastermind.gif",
+]
 
 # MAYBE DO DIRECTIONS FOR THE MOVEMENT SYSTEM NEXT
 NAVIGATION_IMAGE_URL = "images.neopets.com/nq/n/navarrows.gif"
 
-MOVE_NOMOVE_URL = "http://www.neopets.com/games/neoquest/neoquest.phtml?action=move&movedir="
-MOVE_NORTHWEST_URL = "http://www.neopets.com/games/neoquest/neoquest.phtml?action=move&movedir=1"
-MOVE_NORTH_URL = "http://www.neopets.com/games/neoquest/neoquest.phtml?action=move&movedir=2"
-MOVE_NORTHEAST_URL = "http://www.neopets.com/games/neoquest/neoquest.phtml?action=move&movedir=3"
-MOVE_WEST_URL = "http://www.neopets.com/games/neoquest/neoquest.phtml?action=move&movedir=4"
-MOVE_EAST_URL = "http://www.neopets.com/games/neoquest/neoquest.phtml?action=move&movedir=5"
-MOVE_SOUTHWEST_URL = "http://www.neopets.com/games/neoquest/neoquest.phtml?action=move&movedir=6"
-MOVE_SOUTH_URL = "http://www.neopets.com/games/neoquest/neoquest.phtml?action=move&movedir=7"
-MOVE_SOUTHEAST_URL = "http://www.neopets.com/games/neoquest/neoquest.phtml?action=move&movedir=8"
+MOVE_NOMOVE_URL = (
+    "http://www.neopets.com/games/neoquest/neoquest.phtml?action=move&movedir="
+)
+MOVE_NORTHWEST_URL = (
+    "http://www.neopets.com/games/neoquest/neoquest.phtml?action=move&movedir=1"
+)
+MOVE_NORTH_URL = (
+    "http://www.neopets.com/games/neoquest/neoquest.phtml?action=move&movedir=2"
+)
+MOVE_NORTHEAST_URL = (
+    "http://www.neopets.com/games/neoquest/neoquest.phtml?action=move&movedir=3"
+)
+MOVE_WEST_URL = (
+    "http://www.neopets.com/games/neoquest/neoquest.phtml?action=move&movedir=4"
+)
+MOVE_EAST_URL = (
+    "http://www.neopets.com/games/neoquest/neoquest.phtml?action=move&movedir=5"
+)
+MOVE_SOUTHWEST_URL = (
+    "http://www.neopets.com/games/neoquest/neoquest.phtml?action=move&movedir=6"
+)
+MOVE_SOUTH_URL = (
+    "http://www.neopets.com/games/neoquest/neoquest.phtml?action=move&movedir=7"
+)
+MOVE_SOUTHEAST_URL = (
+    "http://www.neopets.com/games/neoquest/neoquest.phtml?action=move&movedir=8"
+)
 
-numbers_to_direction_urls = {"1": MOVE_NORTHWEST_URL,
-                       "2": MOVE_NORTH_URL,
-                       "3": MOVE_NORTHEAST_URL,
-                       "4": MOVE_WEST_URL,
-                       "5": MOVE_EAST_URL,
-                       "6": MOVE_SOUTHWEST_URL,
-                       "7": MOVE_SOUTH_URL,
-                       "8": MOVE_SOUTHEAST_URL
-                       }
+numbers_to_direction_urls = {
+    "1": MOVE_NORTHWEST_URL,
+    "2": MOVE_NORTH_URL,
+    "3": MOVE_NORTHEAST_URL,
+    "4": MOVE_WEST_URL,
+    "5": MOVE_EAST_URL,
+    "6": MOVE_SOUTHWEST_URL,
+    "7": MOVE_SOUTH_URL,
+    "8": MOVE_SOUTHEAST_URL,
+}
 
 SNEAKING_MODE_URL = "http://www.neopets.com/games/neoquest/neoquest.phtml?movetype=3"
 HUNTING_MODE_URL = "http://www.neopets.com/games/neoquest/neoquest.phtml?movetype=2"
