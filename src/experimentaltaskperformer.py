@@ -4,11 +4,11 @@ import logging
 import constants
 import seleniumobjectsandmethods
 
+
 class ExperimentalTaskPerformer:
 
-    def __init__(self):
-        self.autobattler = autobattler.AutoBattler()
-        self.autobattler.login_manager.login_neopets()
+    def __init__(self, use_neopass):
+        self.autobattler = autobattler.AutoBattler(use_neopass=use_neopass)
 
     def split_path_by_last_step(self, movementPath):
         path_without_last_step = movementPath[:-1]
@@ -27,7 +27,8 @@ class ExperimentalTaskPerformer:
             if current_health < 25:
                 self.autobattler.follow_path("3")
                 seleniumobjectsandmethods.go_to_url(
-                    "http://www.neopets.com/games/neoquest/neoquest.phtml?action=talk&target=90010001")
+                    "http://www.neopets.com/games/neoquest/neoquest.phtml?action=talk&target=90010001"
+                )
                 seleniumobjectsandmethods.go_to_url(constants.MAIN_GAME_URL)
                 self.autobattler.follow_path("6")
         # Now go hunt plains lupes
@@ -52,7 +53,9 @@ class ExperimentalTaskPerformer:
 
         logging.info("Walking to the Dank Cave...")
 
-        self.autobattler.follow_path(gameinfo.travel_locations_to_paths["eleusToDankCave"])
+        self.autobattler.follow_path(
+            gameinfo.travel_locations_to_paths["eleusToDankCave"]
+        )
         # Want to stop right before floor 2 to grind cave lupe pelt
 
         logging.info("Walking from Dank Cave F1 to F2...")
@@ -97,7 +100,9 @@ class ExperimentalTaskPerformer:
         logging.info("Walking to Xantan...")
 
         f4_to_xantan_path = gameinfo.travel_locations_to_paths["dankCaveF4ToXantan"]
-        stop_before_exit_path, last_f4_step = self.split_path_by_last_step(f4_to_xantan_path)
+        stop_before_exit_path, last_f4_step = self.split_path_by_last_step(
+            f4_to_xantan_path
+        )
         self.autobattler.grind_for_items(("corroded aluminum rod",))
         self.autobattler.follow_path(stop_before_exit_path)
         # Will automatically fight Xantan here
@@ -110,7 +115,9 @@ class ExperimentalTaskPerformer:
     def complete_eleus_after_xantan(self):
         logging.info("Walking back to Eleus Batrin for weapon upgrade...")
 
-        self.autobattler.follow_path(gameinfo.travel_locations_to_paths["afterDankCaveTeleporterToEleus"])
+        self.autobattler.follow_path(
+            gameinfo.travel_locations_to_paths["afterDankCaveTeleporterToEleus"]
+        )
         # # Should be at Eleus now
         self.autobattler.equipment_maker.set_equipment_recipe("Silver Wand")
         self.autobattler.equipment_maker.make_equipment()
@@ -126,15 +133,21 @@ class ExperimentalTaskPerformer:
     def complete_jungle_ruins_f1_from_eleus(self):
         # Nothing to grind. Just walking to next location
         logging.info("Walking to Jungle Ruins F2...")
-        self.autobattler.follow_path(gameinfo.travel_locations_to_paths["eleusToJungleRuins"])
-        self.autobattler.follow_path(gameinfo.travel_locations_to_paths["jungleRuinsF1ToF2"])
+        self.autobattler.follow_path(
+            gameinfo.travel_locations_to_paths["eleusToJungleRuins"]
+        )
+        self.autobattler.follow_path(
+            gameinfo.travel_locations_to_paths["jungleRuinsF1ToF2"]
+        )
 
     def complete_jungle_ruins_f2_to_kreai(self):
         # Need to grind jungle beast claw and noil's tooth. Don't leave without them!
         # Move forward to encounter jungle beasts
         logging.info("Walking to Kreai...")
         f1_to_kreai_path = gameinfo.travel_locations_to_paths["jungleRuinsF2ToKreai"]
-        stop_before_kreai_path, last_kreai_step = self.split_path_by_last_step(f1_to_kreai_path)
+        stop_before_kreai_path, last_kreai_step = self.split_path_by_last_step(
+            f1_to_kreai_path
+        )
         self.autobattler.follow_path("3555")
         # Get jungle beast claw before moving on
         self.autobattler.grind_for_items(("jungle beast claw",))
@@ -164,13 +177,14 @@ class ExperimentalTaskPerformer:
         # Don't know where they show up though, so might need to split the path and not use dictionary
         logging.info("Walking to teleporter maze to grind...")
 
-        self.autobattler.follow_path("55777778855553214122233214441144446777664412222222235555555555"
-                                    "555555555877777777855558866")
+        self.autobattler.follow_path(
+            "55777778855553214122233214441144446777664412222222235555555555"
+            "555555555877777777855558866"
+        )
         # Should take us to around the teleporter maze
         # Get the jungle pauldrons before moving on
         self.autobattler.grind_for_items(("jungle pauldrons",))
-        self.autobattler.follow_path("446855553"
-                                    "55876685532222214444")
+        self.autobattler.follow_path("446855553" "55876685532222214444")
         # Grind to maybe 20 here to be safe
         self.autobattler.train_to_desired_level(21)
         # If we are past 20, go grind two more levels after getting to Gors level
@@ -187,7 +201,9 @@ class ExperimentalTaskPerformer:
         # Start at place after Gor's teleporter
         logging.info("Walking to Denethrir for upgrade...")
 
-        self.autobattler.follow_path(gameinfo.travel_locations_to_paths["jungleRuinsAfterGorsToDenethrir"])
+        self.autobattler.follow_path(
+            gameinfo.travel_locations_to_paths["jungleRuinsAfterGorsToDenethrir"]
+        )
         self.autobattler.equipment_maker.set_equipment_recipe("Nature Wand")
         self.autobattler.equipment_maker.make_equipment()
 
@@ -197,19 +213,24 @@ class ExperimentalTaskPerformer:
         # Navigate back from Denethrir all the way to Rollay
         # No items to grind, just levels
         logging.info("Walking from Denethrir to Jungle Ruins F3...")
-        self.autobattler.follow_path(gameinfo.travel_locations_to_paths["jungleRuinsDenethrirToF3"])
+        self.autobattler.follow_path(
+            gameinfo.travel_locations_to_paths["jungleRuinsDenethrirToF3"]
+        )
         self.autobattler.train_to_desired_level(24)
 
         # Now we want to walk halfway to Rollay and grind WAY up, maybe to 27
         # This should already be true, but just in case. Want to hunt all the way to Rollay
-        self.autobattler.follow_path("55558588788777788878888553333333353332233333555555558")
+        self.autobattler.follow_path(
+            "55558588788777788878888553333333353332233333555555558"
+        )
         self.autobattler.train_to_desired_level(27)
 
         # Walk near Rollay to encounter higher level enemies
         self.autobattler.follow_path(
             "777777777777666677888668767778877776776666644444444"
             "414441114466644111211446787676461221222333311232223"
-            "355558883338886777883223233553588")
+            "355558883338886777883223233553588"
+        )
 
         # Train to 29 to prep for Techo Caves and then beat Rollay and enter teleporter
         self.autobattler.train_to_desired_level(29)
@@ -221,25 +242,41 @@ class ExperimentalTaskPerformer:
         # Nothing special here, just a pure navigation function
         logging.info("Walking from after Rollay to Techo Cave 1...")
 
-        rollay_to_techo_caves_path = gameinfo.travel_locations_to_paths["jungleRuinsAfterRollayToTechoCaves"]
+        rollay_to_techo_caves_path = gameinfo.travel_locations_to_paths[
+            "jungleRuinsAfterRollayToTechoCaves"
+        ]
         self.autobattler.follow_path(rollay_to_techo_caves_path)
 
     def complete_techo_cave1(self):
         # Remember to gather all three drakonid parts and make the armour
         logging.info("Walking to Techo Cave 1 exit to grind...")
 
-        techo_cave1_to_exit_path = gameinfo.travel_locations_to_paths["techoCave1ToExit"]
-        techo_cave1_to_2_transition_path = gameinfo.travel_locations_to_paths["techoCave1To2Transition"]
-        stop_before_exit_path, cave1_last_step = self.split_path_by_last_step(techo_cave1_to_exit_path)
+        techo_cave1_to_exit_path = gameinfo.travel_locations_to_paths[
+            "techoCave1ToExit"
+        ]
+        techo_cave1_to_2_transition_path = gameinfo.travel_locations_to_paths[
+            "techoCave1To2Transition"
+        ]
+        stop_before_exit_path, cave1_last_step = self.split_path_by_last_step(
+            techo_cave1_to_exit_path
+        )
 
         # Need to level up, so grind to 30 before continuing
         self.autobattler.train_to_desired_level(30, "66444")
 
         # Go to the end of the cave and grind out the drakonid parts
         self.autobattler.follow_path(stop_before_exit_path)
-        self.autobattler.grind_for_items(("drakonid eye", "drakonid hide", "drakonid heart",))
+        self.autobattler.grind_for_items(
+            (
+                "drakonid eye",
+                "drakonid hide",
+                "drakonid heart",
+            )
+        )
         # Go back out of the cave and come back in before visiting Mr. Irgo
-        self.autobattler.follow_path(self.autobattler.path_tracker.invert_path(stop_before_exit_path))
+        self.autobattler.follow_path(
+            self.autobattler.path_tracker.invert_path(stop_before_exit_path)
+        )
         self.autobattler.enter_or_exit_dungeon()
         self.autobattler.follow_path("64")
 
@@ -265,8 +302,12 @@ class ExperimentalTaskPerformer:
 
         logging.info("Walking to techo cave 2 exit to grind...")
         techoCave2ToExitPath = gameinfo.travel_locations_to_paths["techoCave2ToExit"]
-        techoCave2To4TransitionPath = gameinfo.travel_locations_to_paths["techoCave2To4Transition"]
-        stopBeforeCave2ExitPath, lastCave2Step = self.split_path_by_last_step(techoCave2ToExitPath)
+        techoCave2To4TransitionPath = gameinfo.travel_locations_to_paths[
+            "techoCave2To4Transition"
+        ]
+        stopBeforeCave2ExitPath, lastCave2Step = self.split_path_by_last_step(
+            techoCave2ToExitPath
+        )
         self.autobattler.follow_path(stopBeforeCave2ExitPath)
 
         # We are now at step before exit. Grind up to 37 to be safe
@@ -279,7 +320,9 @@ class ExperimentalTaskPerformer:
 
         # Navigate all the way to Sunny City and clean the medallion
         logging.info("Walking to Sunny City...")
-        self.autobattler.follow_path(gameinfo.travel_locations_to_paths["techoCave4ToSunnyCity"])
+        self.autobattler.follow_path(
+            gameinfo.travel_locations_to_paths["techoCave4ToSunnyCity"]
+        )
         self.autobattler.equipment_maker.set_equipment_recipe("Keladrian Medallion")
         # I don't know what will happen if you try to equip this since you can't, but uh...
         self.autobattler.equipment_maker.make_equipment()
@@ -292,9 +335,15 @@ class ExperimentalTaskPerformer:
         # Start at Sunny City. No need to grind. Just navigate all the way to Mountain Fortress
         # Remember to call enterOrExit after returning because it auto clicks the cave 2 exit
         logging.info("Walking from Sunny City to Mountain Fortress...")
-        self.autobattler.follow_path(gameinfo.travel_locations_to_paths["sunnyCityToTechoCave2"])
-        self.autobattler.follow_path(gameinfo.travel_locations_to_paths["techoCave2To6"])
-        self.autobattler.follow_path(gameinfo.travel_locations_to_paths["techoCave6ToMountainFortress"])
+        self.autobattler.follow_path(
+            gameinfo.travel_locations_to_paths["sunnyCityToTechoCave2"]
+        )
+        self.autobattler.follow_path(
+            gameinfo.travel_locations_to_paths["techoCave2To6"]
+        )
+        self.autobattler.follow_path(
+            gameinfo.travel_locations_to_paths["techoCave6ToMountainFortress"]
+        )
 
         logging.info("Techo Caves completed!")
 
@@ -316,8 +365,12 @@ class ExperimentalTaskPerformer:
 
         # Now beat all the guardians
         logging.info("Walking to all guardians and beating them...")
-        self.autobattler.follow_path(gameinfo.travel_locations_to_paths["mountainFortressToIce"])
-        self.autobattler.follow_path(gameinfo.travel_locations_to_paths["mountainFortressIceToLife"])
+        self.autobattler.follow_path(
+            gameinfo.travel_locations_to_paths["mountainFortressToIce"]
+        )
+        self.autobattler.follow_path(
+            gameinfo.travel_locations_to_paths["mountainFortressIceToLife"]
+        )
         # Might be nice to grind here to maybe 44, but no clue if you can find enemies on boss square
         # Also don't forget to equip the Moonstone Staff
 
@@ -333,11 +386,18 @@ class ExperimentalTaskPerformer:
 
         self.autobattler.train_to_desired_level(44)
 
-        self.autobattler.follow_path(gameinfo.travel_locations_to_paths["mountainFortressLifeToFire"])
-        self.autobattler.follow_path(gameinfo.travel_locations_to_paths["mountainFortressFireToShock"])
-        self.autobattler.follow_path(gameinfo.travel_locations_to_paths["mountainFortressShockToSpectral"])
         self.autobattler.follow_path(
-            gameinfo.travel_locations_to_paths["mountainFortressSpectralToEntrance"])
+            gameinfo.travel_locations_to_paths["mountainFortressLifeToFire"]
+        )
+        self.autobattler.follow_path(
+            gameinfo.travel_locations_to_paths["mountainFortressFireToShock"]
+        )
+        self.autobattler.follow_path(
+            gameinfo.travel_locations_to_paths["mountainFortressShockToSpectral"]
+        )
+        self.autobattler.follow_path(
+            gameinfo.travel_locations_to_paths["mountainFortressSpectralToEntrance"]
+        )
 
         logging.info("Mountain Fortress completed!")
 
@@ -350,13 +410,21 @@ class ExperimentalTaskPerformer:
         self.autobattler.equipment_maker.equip_equipment()
 
         logging.info("Walking from Mountain Fortress to Kal Panning...")
-        self.autobattler.follow_path(gameinfo.travel_locations_to_paths["mountainFortressToTechoCave6"])
+        self.autobattler.follow_path(
+            gameinfo.travel_locations_to_paths["mountainFortressToTechoCave6"]
+        )
         # We are outside cave 6 again, so just follow path to Faleinn
-        self.autobattler.follow_path(gameinfo.travel_locations_to_paths["techoCave6ToKalPanning"])
+        self.autobattler.follow_path(
+            gameinfo.travel_locations_to_paths["techoCave6ToKalPanning"]
+        )
         # We are now in front of Kal Panning. Stop before Faleinn now
 
-        kal_panning_to_faleinn_path = gameinfo.travel_locations_to_paths["kalPanningToFaleinn"]
-        stop_before_faleinn_path, last_faleinn_step = self.split_path_by_last_step(kal_panning_to_faleinn_path)
+        kal_panning_to_faleinn_path = gameinfo.travel_locations_to_paths[
+            "kalPanningToFaleinn"
+        ]
+        stop_before_faleinn_path, last_faleinn_step = self.split_path_by_last_step(
+            kal_panning_to_faleinn_path
+        )
         self.autobattler.follow_path(stop_before_faleinn_path)
 
         self.autobattler.train_to_desired_level(47)
@@ -370,11 +438,15 @@ class ExperimentalTaskPerformer:
     def complete_faleinn_to_jahbal(self):
         # Just want to walk all the way to the Two Rings, grind to 50, and walk to Jahbal
         logging.info("Walking from Faleinn to Two Rings Castle...")
-        self.autobattler.follow_path(gameinfo.travel_locations_to_paths["faleinnToTwoRings"])
+        self.autobattler.follow_path(
+            gameinfo.travel_locations_to_paths["faleinnToTwoRings"]
+        )
         # Should be inside Two Rings now. Walk in a few steps to grind
         self.autobattler.train_to_desired_level(50, "2222222222")
         logging.info("Final grind completed! Walking to Jahbal now...")
-        self.autobattler.follow_path(gameinfo.travel_locations_to_paths["twoRingsToJahbal"])
+        self.autobattler.follow_path(
+            gameinfo.travel_locations_to_paths["twoRingsToJahbal"]
+        )
 
         self.autobattler.follow_path("5")
         # Program will automatically fight Jahbal and move to Mastermind, then Xantan if on InSaNe
@@ -382,25 +454,28 @@ class ExperimentalTaskPerformer:
     def complete_jahbal_after_revive(self):
         # Jahbal fight has a lot of RNG because of 3-turn stuns. Dying is a distinct possibility
         # In that case, walk all the way back to him to fight again
-        self.autobattler.follow_path(gameinfo.travel_locations_to_paths["reviveToJahbal"])
+        self.autobattler.follow_path(
+            gameinfo.travel_locations_to_paths["reviveToJahbal"]
+        )
+
 
 # if __name__ == "__main__":
 #     myTaskPerformer = ExperimentalTaskPerformer()
-    # myTaskPerformer.completeInitialSetup()
-    # myTaskPerformer.completeDankCaveF1()
-    # myTaskPerformer.completeDankCaveF2()
-    # myTaskPerformer.completeDankCaveF3()
-    # myTaskPerformer.completeDankCaveF4()
-    # myTaskPerformer.completeEleusAfterXantan()
-    # myTaskPerformer.completeJungleRuinsF1FromEleus()
-    # myTaskPerformer.completeJungleRuinsF2ToKreai()
-    # myTaskPerformer.completeJungleRuinsAfterKreaiToGors()
-    # myTaskPerformer.completeJungleRuinsWeaponUpgrade()
-    # myTaskPerformer.completeRollayFromDenethrir()
-    # myTaskPerformer.completeAfterRollayToTechoCaves()
-    # myTaskPerformer.completeTechoCave1()
-    # myTaskPerformer.completeCave2And4Medallion()
-    # myTaskPerformer.completeSunnyCityToMountainFortress()
-    # myTaskPerformer.completeMountainFortress()
-    # myTaskPerformer.completeKalPanning()
-    # myTaskPerformer.completeFaleinnToJahbal()
+# myTaskPerformer.completeInitialSetup()
+# myTaskPerformer.completeDankCaveF1()
+# myTaskPerformer.completeDankCaveF2()
+# myTaskPerformer.completeDankCaveF3()
+# myTaskPerformer.completeDankCaveF4()
+# myTaskPerformer.completeEleusAfterXantan()
+# myTaskPerformer.completeJungleRuinsF1FromEleus()
+# myTaskPerformer.completeJungleRuinsF2ToKreai()
+# myTaskPerformer.completeJungleRuinsAfterKreaiToGors()
+# myTaskPerformer.completeJungleRuinsWeaponUpgrade()
+# myTaskPerformer.completeRollayFromDenethrir()
+# myTaskPerformer.completeAfterRollayToTechoCaves()
+# myTaskPerformer.completeTechoCave1()
+# myTaskPerformer.completeCave2And4Medallion()
+# myTaskPerformer.completeSunnyCityToMountainFortress()
+# myTaskPerformer.completeMountainFortress()
+# myTaskPerformer.completeKalPanning()
+# myTaskPerformer.completeFaleinnToJahbal()
