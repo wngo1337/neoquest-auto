@@ -181,15 +181,15 @@ If you get lost in the caves, I'm sorry but you will likely have a hard time get
 already know the game well. Consult maps to identify which cave you are in and how to get back to
 the first cave's starting tile.
 
-~[MountainFortressEntranceTile](readmeresources/StartingTileImages/mountain_fortress_start_tile.jpg)
+![MountainFortressEntranceTile](readmeresources/StartingTileImages/mountain_fortress_start_tile.jpg)
 
 The Mountain Fortress is connected to Techo Cave 6 if you are following the IDNQ map.
 
-~[KalPanningStartTile](readmeresources/StartingTileImages/kal_panning_start_tile.jpg)
+![KalPanningStartTile](readmeresources/StartingTileImages/kal_panning_start_tile.jpg)
 
 The Kal Panning route starts directly outside the Mountain Fortress.
 
-~[TwoRingsStartTile](readmeresources/StartingTileImages/two_rings_grind_start_tile.jpg)
+![TwoRingsStartTile](readmeresources/StartingTileImages/two_rings_grind_start_tile.jpg)
 
 Similarly, the Two Rings route starts directly from where you beat Faleinn.
 
