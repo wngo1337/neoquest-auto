@@ -29,7 +29,9 @@ Google Chrome Browser - [You can get it from here](https://www.google.com/intl/e
 
 uBlock Origin Lite for Chrome - [You can get it from here](https://chromewebstore.google.com/detail/ublock-origin-lite/ddkjiahejlhfcafbddmgiahcphecmpfh)
 
-This program has only been tested for Windows.
+~~This program has only been tested for Windows.~~
+This program has been tested on Windows, Linux, and MacOS, and the only difference you should
+experience is how you call Python from the terminal.
 
 ### Installing
 
@@ -50,6 +52,14 @@ For example, Windows users using Powershell might perform the following commands
 py -m venv venv
 
 venv/Scripts/Activate.ps1
+```
+
+Linux and Mac users will probably want to use this syntax:
+
+```
+python3 -m venv venv
+
+source venv/bin/activate
 ```
 
 Once your venv is activated, use the following command to install the necessary requirements to
@@ -130,6 +140,58 @@ Option 5: 1 hour 40~ minutes
 Option 6: 55 minutes
 
 Option 7 (end of game): 1 hour 20~ minutes
+
+### Troubleshooting
+
+**I got a warning about Google detecting suspicious login activity and can't login!**
+
+I find that this happens if you normally use another browser for Neopets, and then the program
+suddenly logs you in with Chrome. You generally do not need to be worried about this. After all,
+normal players also switch browsers from time to time.
+
+**Solution:** As the warning says, simply wait for some time (e.g. 10 minutes) and try to run the program again.
+They can't block you from logging in forever, right?
+
+**The browser closed itself before it could finish the login process**
+
+This happens when the login process takes too long and the authenticated page doesn't load.
+
+**Solution:** Running the program again should work if it was just a random issue.
+
+**The program is out of sync with the actual map location and is no longer taking me to the right
+location**
+
+This doesn't happen often, but I'm sure that it is annoying when it does. Unfortunately, I don't
+have an easy fix for this right now. If you do, I'd gladly accept a PR!
+
+**Solution:** Determine the autoplayer option that you were in the middle of running. Navigate back
+to the correct starting tile manually and rerun the option. The starting tiles are shown below:
+
+### Starting Tile For Options 1 (Initial Skill Setup), 2 (Dank Cave), 3 (Jungle Ruins), and Returning to Jahbal After Dying
+
+![NeopiaCityTile](readmeresources/StartingTileImages/common_start_tile.jpg)
+
+You should be very familiar with this location. It is the home of many early game upgrades.
+
+### Starting Tile For Option 4 (Techo Caves)
+
+![TechoCavesEntranceTile](readmeresources/StartingTileImages/techo_caves_start_tile.jpg)
+
+If you get lost in the caves, I'm sorry but you will likely have a hard time getting out unless you
+already know the game well. Consult maps to identify which cave you are in and how to get back to
+the first cave's starting tile.
+
+~[MountainFortressEntranceTile](readmeresources/StartingTileImages/mountain_fortress_start_tile.jpg)
+
+The Mountain Fortress is connected to Techo Cave 6 if you are following the IDNQ map.
+
+~[KalPanningStartTile](readmeresources/StartingTileImages/kal_panning_start_tile.jpg)
+
+The Kal Panning route starts directly outside the Mountain Fortress.
+
+~[TwoRingsStartTile](readmeresources/StartingTileImages/two_rings_grind_start_tile.jpg)
+
+Similarly, the Two Rings route starts directly from where you beat Faleinn.
 
 ## Built With
 
