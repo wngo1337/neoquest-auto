@@ -1,3 +1,18 @@
+# Repository Archive Notice
+
+Hey everyone! I don't know how many of you are out there, but there's got to be at least one, right?
+
+Long story short, I have had a lot of fun building this project long ago. It might not be the
+cleanest design or the best code, but it is hard to deny that it worked most of the time!
+
+That being said, I am a busier person than I was years ago, so I don't really have time to play the
+cat-and-mouse game of avoiding Neopet's Cloudflare bot detection (even if I think it is
+probably doable with packages like zendriver or undetected_chromedriver). For that reason, I do
+believe it is a good time to call it here.
+
+Thanks to my fellow contributor for helping to maintain this program, and thanks to anyone who used
+it! If anyone ever feels like reviving this project, you know where to find it...
+
 # Neoquest Auto - A (Mostly) Automated Neoquest Player
 
 Neoquest Auto is a simple-to-use program built with Python and Selenium that helps users to easily
